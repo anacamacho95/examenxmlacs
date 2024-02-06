@@ -1,0 +1,26 @@
+<receta nombre="tostada">
+    <ingrediente nombre="pan">
+        <alimento>
+            <proteinas cantidad100g="9"/>
+            <grasas cantidad100g="3"/>
+            <hidratos cantidad100g="49"/>
+        </alimento>
+        <cantidad> 150 </cantidad>
+    </ingrediente>
+    <ingrediente nombre="aceite">
+        <alimento>
+            <proteinas cantidad100g="0"/>
+            <grasas cantidad100g="100"/>
+            <hidratos cantidad100g="0"/>
+        </alimento>
+        <cantidad> 15 </cantidad>
+    </ingrediente>
+    <ingrediente nombre="jamon">
+        <alimento>
+            <proteinas cantidad100g="21"/>
+            <grasas cantidad100g="6"/>
+            <hidratos cantidad100g="1.5"/>
+        </alimento>
+        <cantidad> 30 </cantidad>
+    </ingrediente>
+</receta>
