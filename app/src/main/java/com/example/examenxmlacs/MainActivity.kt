@@ -19,20 +19,20 @@ class MainActivity : AppCompatActivity() {
         daoSAX.procesarArchivoAssetsXMLSAX()
         Log.d("XMLSAX", "SAX terminado")
 
-        var daoAssets=DaoAssets(applicationContext)
-        daoAssets.procesarArchivoAssetsXML()
-        Log.d("SimpleXML", "probando procesado con Simple XML Framework")
-
-        daoAssets.copiarArchivoDesdeAssets()
-
-        //añadiendo nuevo ingrediente
-        val ingrediente=Ingrediente((Alimento(20,23,25)),"20","pavo")
-        daoAssets.addIngrediente(ingrediente)
-        daoAssets.ingredientes.forEach(){
-            Log.d("ingPavo", it.toString())
-        }
-
-        daoAssets.ProcesarArchivoXMLInterno()
+//        var daoAssets=DaoAssets(applicationContext)
+//        daoAssets.procesarArchivoAssetsXML()
+//        Log.d("SimpleXML", "probando procesado con Simple XML Framework")
+//
+//        daoAssets.copiarArchivoDesdeAssets()
+//
+//        //añadiendo nuevo ingrediente
+//        val ingrediente=Ingrediente((Alimento(20,23,25)),"20","pavo")
+//        daoAssets.addIngrediente(ingrediente)
+//        daoAssets.ingredientes.forEach(){
+//            Log.d("ingPavo", it.toString())
+//        }
+//
+//        daoAssets.ProcesarArchivoXMLInterno()
 
     }
 }

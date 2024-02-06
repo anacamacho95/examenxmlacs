@@ -13,7 +13,9 @@ data class Recetas (
 @Root(name="receta")
 data class Receta (
     @field:ElementList(inline=true, entry="ingrediente")
-    var ingrediente: List<Ingrediente> = mutableListOf()
+    var ingrediente: List<Ingrediente> = mutableListOf(),
+    @field:Attribute(name="nombre")
+    var nombre: String? = ""
 )
 
 @Root(name="ingrediente")
@@ -47,3 +49,19 @@ data class Alimento(
         return "Proteinas:$proteinas Grasas:$grasas Hidrato:$hidratos"
     }
 }
+
+@Root(name="proteinas")
+data class Proteinas(
+    @field:Attribute(name="cantidad100g")
+    var cantidad100g: Int? = 0
+)
+@Root(name="alimento")
+data class Grasas(
+    @field:Attribute(name="cantidad100g")
+    var cantidad100g: Int? = 0
+)
+@Root(name="hidrato")
+data class Hidratos(
+    @field:Attribute(name="cantidad100g")
+    var cantidad100g: Int? = 0
+)

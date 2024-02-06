@@ -10,6 +10,9 @@ class RecetaHandlerXML :DefaultHandler() {
     private var receta : Receta? = null
     private var ingrediente : Ingrediente? = null
     private var alimento : Alimento? = null
+    private var proteinas : Proteinas? = null
+    private var grasas : Grasas? = null
+    private var hidratos : Hidratos? = null
     var recetas: MutableList<Receta> = mutableListOf()
     var ingredientes: MutableList<Ingrediente> = mutableListOf()
     var alimentos: MutableList<Alimento> = mutableListOf()
@@ -42,6 +45,15 @@ class RecetaHandlerXML :DefaultHandler() {
             alimento = Alimento()
         }
         Log.d("SAX", "abriendo etiqueta alimento")
+
+        if (nombre=="proteinas"){
+            proteinas = Proteinas()
+        }
+        Log.d("SAX", "abriendo etiqueta proteinas")
+        if (nombre=="grasas"){
+            grasas = Grasas()
+        }
+        Log.d("SAX", "abriendo etiqueta proteinas")
     }
 
     @Throws(SAXException::class)
