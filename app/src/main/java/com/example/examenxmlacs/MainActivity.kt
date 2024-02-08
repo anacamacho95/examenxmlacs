@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         daoAssets.copiarArchivoDesdeAssets()
 
         //añadiendo nuevo ingrediente
-        val ingrediente=Ingrediente((Alimento((Proteinas(20)), Grasas(23),Hidratos(25))),"20","pavo")
+        val ingrediente=Ingrediente((Alimento((Proteinas("20")), Grasas("23"),Hidratos("25"))),"20","pavo")
         daoAssets.addIngrediente(ingrediente)
         daoAssets.ingredientes.forEach(){
             Log.d("ingPavo", it.nombre.toString() + it.toString())

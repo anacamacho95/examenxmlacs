@@ -10,6 +10,9 @@ class RecetaHandlerXML :DefaultHandler() {
     private var receta : Receta? = null
     private var ingrediente : Ingrediente? = null
     private var alimento : Alimento? = null
+    private var proteinas : Proteinas? = null
+    private var grasas : Grasas? = null
+    private var hidratos : Hidratos? = null
     var recetas: MutableList<Receta> = mutableListOf()
     var ingredientes: MutableList<Ingrediente> = mutableListOf()
     var alimentos: MutableList<Alimento> = mutableListOf()
@@ -17,9 +20,9 @@ class RecetaHandlerXML :DefaultHandler() {
     @Throws(SAXException::class)
     override fun startDocument() {
         cadena.clear()
-        recetas.clear()
-        ingredientes.clear()
-        alimentos.clear()
+        recetas = mutableListOf()
+        ingredientes = mutableListOf()
+        alimentos = mutableListOf()
         Log.d("SAX", "abriendo el documento")
     }
 
@@ -43,6 +46,24 @@ class RecetaHandlerXML :DefaultHandler() {
         }
         Log.d("SAX", "abriendo etiqueta alimento")
 
+        if (nombre=="proteinas"){
+            proteinas = Proteinas()
+            proteinas?.cantidad100g = attributes.getValue("cantidad100g")
+        }
+        Log.d("SAX", "abriendo etiqueta proteina")
+
+        if (nombre=="grasas"){
+            grasas = Grasas()
+            grasas?.cantidad100g = attributes.getValue("cantidad100g")
+        }
+        Log.d("SAX", "abriendo etiqueta grasa")
+
+        if (nombre=="hidratos"){
+            hidratos = Hidratos()
+            hidratos?.cantidad100g = attributes.getValue("cantidad100g")
+        }
+        Log.d("SAX", "abriendo etiqueta hidratos")
+
     }
 
     @Throws(SAXException::class)
@@ -54,32 +75,14 @@ class RecetaHandlerXML :DefaultHandler() {
     @Throws(SAXException::class)
     override fun endElement(uri: String, nombreLocal: String, nombre: String) {
         when (nombre) {
-            "proteinas" -> {
-                if (cadena.isNotEmpty()) {
-                    alimento?.proteinas = Proteinas(cadena.toString().toInt())
-                }
-            }
-            "grasas" -> {
-                if (cadena.isNotEmpty()) {
-                    alimento?.grasas = Grasas(cadena.toString().toInt())
-                }
-            }
-            "hidratos" -> {
-                if (cadena.isNotEmpty()) {
-                    alimento?.hidratos = Hidratos(cadena.toString().toInt())
-                }
-            }
+            "proteinas" -> alimento?.proteinas = Proteinas(cadena.toString())
+            "grasas" ->   alimento?.grasas = Grasas(cadena.toString())
+            "hidratos" -> alimento?.hidratos = Hidratos(cadena.toString())
             "cantidad" -> ingrediente?.cantidad = cadena.toString()
-            "alimento" -> {
-                ingrediente?.alimento = alimento
-                alimento = null
-            }
-            "ingrediente" -> {
-                ingrediente?.let { ingredientes.add(it) }
-                alimento = null // Restablecer alimento a null después de agregarlo al ingrediente
-            }
+            "alimento" -> alimentos.add(alimento!!)
+            "ingrediente" -> ingrediente?.let { ingredientes.add(it)}
+            "receta" -> receta?.ingredientes = ingredientes
         }
-
         Log.d("SAX", "cerrando elemento $nombre $nombreLocal")
     }
 

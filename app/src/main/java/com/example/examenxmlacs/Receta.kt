@@ -7,13 +7,13 @@ import org.simpleframework.xml.Root
 
 @Root(name="recetas")
 data class Recetas (
-    @field:ElementList(inline=true, entry="recetas")
+    @field:ElementList(inline=true, entry="receta")
     var receta: List<Receta> = mutableListOf()
 )
 @Root(name="receta")
 data class Receta (
     @field:ElementList(inline=true, entry="ingrediente", required = false)
-    var ingrediente: List<Ingrediente> = mutableListOf(),
+    var ingredientes: List<Ingrediente> = mutableListOf(),
     @field:Attribute(name="nombre", required = false)
     var nombre: String? = ""
 )
@@ -51,7 +51,7 @@ data class Alimento(
 @Root(name="proteinas")
 data class Proteinas(
     @field:Attribute(name="cantidad100g")
-    var cantidad100g: Int? = 0
+    var cantidad100g: String? = ""
 ){
     override fun toString(): String {
         return "Cantidad100g: $cantidad100g"
@@ -60,7 +60,7 @@ data class Proteinas(
 @Root(name="grasas")
 data class Grasas(
     @field:Attribute(name="cantidad100g")
-    var cantidad100g: Int? = 0
+    var cantidad100g: String? = ""
 ){
     override fun toString(): String {
         return "Cantidad100g: $cantidad100g"
@@ -69,7 +69,7 @@ data class Grasas(
 @Root(name="hidrato")
 data class Hidratos(
     @field:Attribute(name="cantidad100g")
-    var cantidad100g: Int? = 0
+    var cantidad100g: String? = ""
 ){
     override fun toString(): String {
         return "Cantidad100g: $cantidad100g"

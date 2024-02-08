@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.examenxmlacs.Alimento
 import com.example.examenxmlacs.Ingrediente
 import com.example.examenxmlacs.Receta
+import com.example.examenxmlacs.Recetas
 import org.simpleframework.xml.core.Persister
 import java.io.*
 
 class DaoAssets(private val context: Context) {
+    var receta = mutableListOf<Receta>()
     var ingredientes = mutableListOf<Ingrediente>()
 
     fun procesarArchivoAssetsXML() {
@@ -20,10 +22,10 @@ class DaoAssets(private val context: Context) {
         try {
             inputStream = context.assets.open("recetas.xml")
             reader = InputStreamReader(inputStream)
-            val ingredientesListType = serializer.read(Receta::class.java, reader, false)
-            ingredientes.addAll(ingredientesListType.ingrediente)
-            ingredientes.forEach(){
-                Log.d("assetsXMLIng", "Ingrediente: ${it.alimento} Cantidad: ${it.cantidad}")
+            val recetaListType = serializer.read(Recetas::class.java, reader, false)
+            receta.addAll(recetaListType.receta)
+            receta.forEach(){
+                Log.d("assetsXMLIng", "Receta: ${it.nombre} Ingrediente: ${it.ingredientes}")
             }
         } catch (e: Exception) {
             // Manejo de errores
@@ -54,9 +56,9 @@ class DaoAssets(private val context: Context) {
         try {
             val serializer = Persister()
             ingredientes.add(ingrediente)
-            val ingredientesList = Receta(ingredientes)
+            val recetaList = Recetas(receta)
             val outputStream = context.openFileOutput("recetas.xml", AppCompatActivity.MODE_PRIVATE)
-            serializer.write(ingredientesList, outputStream)
+            serializer.write(recetaList, outputStream)
             outputStream.close()
         } catch (e: Exception) {
             e.printStackTrace()
@@ -71,13 +73,15 @@ class DaoAssets(private val context: Context) {
             // Abrir el archivo para lectura
             val file = File(context.filesDir, nombreArchivo)
             val inputStream = FileInputStream(file)
-            val ingredientesList = serializer.read(Receta::class.java, inputStream)
-            ingredientes.clear() //evitar duplicar datos, limpiamos lista de ingredientes, no el archivo interno
-            ingredientes.addAll(ingredientesList.ingrediente)
-            ingredientes.forEach(){
-                Log.d("assetsXML-interno", "Ingrediente: ${it.alimento} Cantidad: ${it.cantidad}")
+            val recetaListType = serializer.read(Recetas::class.java, inputStream)
+            receta.clear() //evitar duplicar datos, limpiamos lista de ingredientes, no el archivo interno
+            receta.addAll(recetaListType.receta)
+            receta.forEach(){
+                Log.d("assetsXML-interno", "Receta: ${it.nombre} Ingrediente: ${it.ingredientes}")
+
             }
             inputStream.close()
+
 
         } catch (e: Exception) {
 
