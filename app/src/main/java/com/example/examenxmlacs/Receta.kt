@@ -12,9 +12,9 @@ data class Recetas (
 )
 @Root(name="receta")
 data class Receta (
-    @field:ElementList(inline=true, entry="ingrediente")
+    @field:ElementList(inline=true, entry="ingrediente", required = false)
     var ingrediente: List<Ingrediente> = mutableListOf(),
-    @field:Attribute(name="nombre")
+    @field:Attribute(name="nombre", required = false)
     var nombre: String? = ""
 )
 
@@ -29,24 +29,22 @@ data class Ingrediente(
     var nombre: String? = ""
 ){
     override fun toString(): String {
-        return "Alimento: ${alimento.toString()} Cantidad: $cantidad"
+        return "\nAlimento: ${alimento.toString()} \nCantidad: $cantidad"
     }
 }
 
 @Root(name="alimento")
 data class Alimento(
     @field:Element(name="proteinas")
-    var proteinas: Int?= null,
+    var proteinas: Proteinas? = null,
     @field:Element(name="grasas")
-    var grasas: Int? = null,
+    var grasas: Grasas? = null,
     @field:Element(name="hidratos")
-    var hidratos: Int? = null,
+    var hidratos: Hidratos? = null,
 
-    @field:Attribute(name="cantidad100g")
-    var cantidad100g: Int? = 0
 ){
     override fun toString(): String {
-        return "Proteinas:$proteinas Grasas:$grasas Hidrato:$hidratos"
+        return "\nProteinas: ${proteinas?.cantidad100g}\nGrasas: ${grasas?.cantidad100g}\nHidratos: ${hidratos?.cantidad100g}"
     }
 }
 
@@ -54,14 +52,26 @@ data class Alimento(
 data class Proteinas(
     @field:Attribute(name="cantidad100g")
     var cantidad100g: Int? = 0
-)
-@Root(name="alimento")
+){
+    override fun toString(): String {
+        return "Cantidad100g: $cantidad100g"
+    }
+}
+@Root(name="grasas")
 data class Grasas(
     @field:Attribute(name="cantidad100g")
     var cantidad100g: Int? = 0
-)
+){
+    override fun toString(): String {
+        return "Cantidad100g: $cantidad100g"
+    }
+}
 @Root(name="hidrato")
 data class Hidratos(
     @field:Attribute(name="cantidad100g")
     var cantidad100g: Int? = 0
-)
+){
+    override fun toString(): String {
+        return "Cantidad100g: $cantidad100g"
+    }
+}

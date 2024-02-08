@@ -10,9 +10,6 @@ class RecetaHandlerXML :DefaultHandler() {
     private var receta : Receta? = null
     private var ingrediente : Ingrediente? = null
     private var alimento : Alimento? = null
-    private var proteinas : Proteinas? = null
-    private var grasas : Grasas? = null
-    private var hidratos : Hidratos? = null
     var recetas: MutableList<Receta> = mutableListOf()
     var ingredientes: MutableList<Ingrediente> = mutableListOf()
     var alimentos: MutableList<Alimento> = mutableListOf()
@@ -20,9 +17,9 @@ class RecetaHandlerXML :DefaultHandler() {
     @Throws(SAXException::class)
     override fun startDocument() {
         cadena.clear()
-        recetas = mutableListOf()
-        ingredientes = mutableListOf()
-        alimentos = mutableListOf()
+        recetas.clear()
+        ingredientes.clear()
+        alimentos.clear()
         Log.d("SAX", "abriendo el documento")
     }
 
@@ -46,14 +43,6 @@ class RecetaHandlerXML :DefaultHandler() {
         }
         Log.d("SAX", "abriendo etiqueta alimento")
 
-        if (nombre=="proteinas"){
-            proteinas = Proteinas()
-        }
-        Log.d("SAX", "abriendo etiqueta proteinas")
-        if (nombre=="grasas"){
-            grasas = Grasas()
-        }
-        Log.d("SAX", "abriendo etiqueta proteinas")
     }
 
     @Throws(SAXException::class)
@@ -65,12 +54,30 @@ class RecetaHandlerXML :DefaultHandler() {
     @Throws(SAXException::class)
     override fun endElement(uri: String, nombreLocal: String, nombre: String) {
         when (nombre) {
-            "proteinas" -> alimento?.proteinas = cadena.toString().toInt()
-            "grasas" -> alimento?.grasas = cadena.toString().toInt()
-            "hidratos" -> alimento?.hidratos = cadena.toString().toInt()
-            "alimento" -> alimentos.add(alimento!!)
+            "proteinas" -> {
+                if (cadena.isNotEmpty()) {
+                    alimento?.proteinas = Proteinas(cadena.toString().toInt())
+                }
+            }
+            "grasas" -> {
+                if (cadena.isNotEmpty()) {
+                    alimento?.grasas = Grasas(cadena.toString().toInt())
+                }
+            }
+            "hidratos" -> {
+                if (cadena.isNotEmpty()) {
+                    alimento?.hidratos = Hidratos(cadena.toString().toInt())
+                }
+            }
             "cantidad" -> ingrediente?.cantidad = cadena.toString()
-            "ingrediente" -> ingrediente?.let { ingredientes.add(it) }
+            "alimento" -> {
+                ingrediente?.alimento = alimento
+                alimento = null
+            }
+            "ingrediente" -> {
+                ingrediente?.let { ingredientes.add(it) }
+                alimento = null // Restablecer alimento a null después de agregarlo al ingrediente
+            }
         }
 
         Log.d("SAX", "cerrando elemento $nombre $nombreLocal")

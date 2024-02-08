@@ -14,10 +14,8 @@ class DaoSax (private val context: Context) {
             val inputStream = context.assets.open("recetas.xml")
             parser.parse(inputStream, handler)
             handler.ingredientes.forEach(){
-                Log.d("XMLSAX", "Ingrediente: ${it.nombre}")
+                Log.d("XMLSAX", "Ingrediente: ${it.nombre} ${it.toString()}")
             }
-
-
 
         } catch (e: Exception) {
             // Maneja las excepciones imprimiendo la traza en la consola
