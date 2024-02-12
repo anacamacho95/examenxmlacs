@@ -25,9 +25,12 @@ class MainActivity : AppCompatActivity() {
 
         daoAssets.copiarArchivoDesdeAssets()
 
+        //obtengo una lista de recetas y busco una receta en la que introduciré mi ingrediente
+
         //añadiendo nuevo ingrediente
+
         val ingrediente=Ingrediente((Alimento((Proteinas("20")), Grasas("23"),Hidratos("25"))),"20","pavo")
-        daoAssets.addIngrediente(ingrediente)
+        daoAssets.addIngrediente(receta,ingrediente)
         daoAssets.ingredientes.forEach(){
             Log.d("ingPavo", it.toString())
         }
