@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         val ingrediente=Ingrediente((Alimento((Proteinas("20")), Grasas("23"),Hidratos("25"))),"20","pavo")
         daoAssets.addIngrediente(ingrediente)
         daoAssets.ingredientes.forEach(){
-            Log.d("ingPavo", it.nombre.toString() + it.toString())
+            Log.d("ingPavo", it.toString())
         }
 
         Log.d("SimpleXMLinterno", "proceso XML interno antes de empezar")

@@ -29,7 +29,7 @@ data class Ingrediente(
     var nombre: String? = ""
 ){
     override fun toString(): String {
-        return "\nAlimento: ${alimento.toString()} \nCantidad: $cantidad"
+        return "\n$nombre \nAlimento: ${alimento.toString()} \nCantidad: $cantidad"
     }
 }
 
